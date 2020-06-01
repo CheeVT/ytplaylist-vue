@@ -2,7 +2,7 @@
   <div id="app">
     <Nav class="mb-6" />
     <div class="flex justify-center items-center">      
-      <HomeScreen />
+      <HomeScreen />      
     </div>
     
   </div>
@@ -18,7 +18,13 @@ export default {
   components: {
     HomeScreen,
     Nav
-  }
+  },
+  computed: {
+    /*this.$gapi.isSignedIn()
+    .then(result => {
+      console.log(result ? 'Signed in' : 'Signed out')
+    })*/
+  },
 }
 </script>
 

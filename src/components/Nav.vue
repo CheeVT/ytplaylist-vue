@@ -22,7 +22,17 @@
         </a>
       </div>
       <div>
-        <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Login</a>
+        <!-- <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Login</a> -->
+        <GoogleSigninBtn v-if="!user" @click="click"/>
+        <div v-else class="flex items-center">
+          <div class="mr-3 text-right">
+            <h3>{{ user.email }}</h3>
+            <button class="signout text-red-900 font-bold text-xs" @click="signout">
+              Sign Out
+            </button>
+          </div>          
+          <img v-if="user.image" :src="user.image" class="sm" style="height: 60px;">
+        </div>
       </div>
     </div>
   </nav>
@@ -30,6 +40,49 @@
 
 <script>
 export default {
-  name: 'Nav'
+  name: 'Nav',
+  data() {
+    return {
+      isLogged: false,
+      user: false
+    }
+  },
+  mounted() {    
+    this.checkCurrentUser();
+  },
+  methods: {
+    click() {
+      this.$gapi.signIn()
+        .then(user => {
+          // eslint-disable-next-line no-console
+          console.log('Signed in as %s', user.name)
+          this.user = user
+        })
+        .catch(err => {
+          // eslint-disable-next-line no-console
+          console.error('Not signed in: %s', err)
+        })
+    },
+    checkCurrentUser() {
+      this.$gapi.currentUser()
+        .then(user => {
+          if (user) {
+             // eslint-disable-next-line no-console
+            console.log('2', user)
+            this.user = user
+          } else {
+             // eslint-disable-next-line no-console
+            console.log('No user is connected.')
+            return false;
+          }
+        })
+    },
+    signout () {
+      this.$gapi.signOut()
+        .then(() => {
+          this.user = false
+        })
+    }
+  },
 }
 </script>
