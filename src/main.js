@@ -5,7 +5,7 @@ import VueGoogleApi from 'vue-google-api/index.js'
 const DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'
 ];
-const SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
+const SCOPES = 'https://www.googleapis.com/auth/youtube';
 
 const config = {
   apiKey: 'AIzaSyD5QDk2vdX_tBaj3Pjmz64rGFIU3DHVt20',
